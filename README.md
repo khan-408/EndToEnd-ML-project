@@ -1,5 +1,8 @@
 ## End to End Project Pipeline
 
+We are doing a project in which our aim is to determine the Prices of diamonds.
+In this project we trained our model on existing data, and will try to prdict the price of diamond based on the given features.
+
 ### Create New Enviroment 
 
 ```
@@ -13,3 +16,4 @@ conda activate venv/
 ```
 pip install -r requirements.txt
 ```
+
