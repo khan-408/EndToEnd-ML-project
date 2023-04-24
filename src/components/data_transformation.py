@@ -9,23 +9,25 @@ from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OrdinalEncoder,StandardScaler
-from src.utils import save_obj
+from src.utils import save_object
 
-
+## Creating Dataclasss
 @dataclass
 class DataTransformationConfig:
     preprocessor_obj_file_path = os.path.join('artifacts','preprocessor.pkl')
 
 class DataTransformation:
+    #Initializing DataClass 
     def __init__(self):
         self.data_transformation_config=DataTransformationConfig()
 
+    # creating function for Data Transformation 
     def get_data_transformation_obj(self):
         try:
 
             logging.info('Data Transformation Initiated') 
 
-            ## Define which columns shou7ld be ordinal encoded and which should be scaled
+            ## Define which columns should be ordinal encoded and which should be scaled
             cat_columns = ['cut','color','clarity']
             num_columns = ['carat','depth','table','x','y','z']
 
@@ -36,6 +38,7 @@ class DataTransformation:
 
             logging.info('Pipeline initiated')
 
+            ## Creating pipelines
             num_pipeline = Pipeline(
                 steps=[
                     ('imputer',SimpleImputer(strategy='median')),
@@ -64,6 +67,7 @@ class DataTransformation:
             logging.info('Error occured in Data Transforming')
             raise CustomException(e,sys)
 
+    # Creating function to initialize the Transformation Process 
     def initiate_data_transformation(self, train_path,test_path):
         try:
             train_df = pd.read_csv('artifacts/train.csv')
@@ -75,8 +79,10 @@ class DataTransformation:
 
             logging.info('Obtaining preprocessing object')
 
+            ## Preparing the Preprocessing Pipeline object
             preprocessing_obj = self.get_data_transformation_obj()
 
+            #Define what should be Target and feature columns.
             target_columns_name=['price']
             drop_columns = ['Unnamed: 0', 'id']
 
@@ -87,6 +93,7 @@ class DataTransformation:
             input_feature_test_df = test_df.drop(columns=drop_columns,axis=1)
             target_feature_test_df = test_df[target_columns_name]
 
+            ## Applying the preprocessing pipeline on Train and test data 
             input_feature_train_arr = preprocessing_obj.fit_transform(input_feature_train_df)
             input_feature_test_arr = preprocessing_obj.transform(input_feature_test_df)
 
@@ -96,11 +103,13 @@ class DataTransformation:
             train_arr = np.c_[input_feature_train_arr, np.array(target_feature_train_df)]
             test_arr = np.c_[input_feature_test_arr, np.array(target_feature_test_df)]
 
-            save_obj(
+            ## Saving the preprocessor.pkl object
+            save_object(
                 file_path = self.data_transformation_config.preprocessor_obj_file_path,
                 obj = preprocessing_obj
 
             )
+
             logging.info("preprocessor pickle file saved.")
 
             return (
@@ -115,3 +124,4 @@ class DataTransformation:
         except Exception as e:
             logging.info('Error occured in Initiate data transformation')
             raise CustomException(e,sys)
+
