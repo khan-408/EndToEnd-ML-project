@@ -15,7 +15,7 @@ The prediction model utilizes machine learning algorithms to analyze a dataset c
 
 The dataset used for this project contains information about diamonds, including attributes such as carat weight, cut quality, color grade, clarity grade, and other relevant features. It also includes the corresponding price for each diamond.
 
-## Commands## 
+## Commands ## 
 Create a New Environment for the Project:
 Using anaconda
 
