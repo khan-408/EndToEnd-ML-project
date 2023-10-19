@@ -15,19 +15,20 @@ The prediction model utilizes machine learning algorithms to analyze a dataset c
 
 The dataset used for this project contains information about diamonds, including attributes such as carat weight, cut quality, color grade, clarity grade, and other relevant features. It also includes the corresponding price for each diamond.
 
+## Commands## 
 Create a New Environment for the Project:
 Using anaconda
 
-conda create -p venv python==3.8
+_conda create -p venv python==3.8_
 To acivate the environment
 
-conda create venv/
-Git commands
+_conda create venv/
+_Git commands
 Configuration
 
-git config --global user.name "<your name>"
-git config --global user.email "<mail id registered with github>"
-Check status
+_git config --global user.name "<your name>"
+__git config --global user.email "<mail id registered with github>"
+_Check status
 
 git status
 Check logs
